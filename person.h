@@ -19,7 +19,13 @@
 
 typedef struct date date;
 struct date{
+private:
     unsigned char date[3];
+    
+public:
+    int set_d(person* newperson);
+    int set_m(person* newperson);
+    int set_y(person* newperson);
 };
 
 typedef struct status status;
@@ -35,9 +41,9 @@ private:
     date dob;
     date deathdate;
     status personstat;
-    std::string firstname;
+    std::string givenname;
     std::string middlenames;
-    std::string lastname;
+    std::string surname;
     person* father;
     person* mother;
     person* spouse;
@@ -48,13 +54,10 @@ private:
     
 public:
     int set_dob(person* newperson);
-    int set_dob_d(person* newperson);
-    int set_dob_m(person* newperson);
-    int set_dob_y(person* newperson);
-
-    int set_deathdate;
+    int set_deathdate(person* newperson);
 
     int set_name(person* newperson, std::string firstname, std::string lastname);
+//     int set_dynasty(person* newperson, dynasty);
     int set_parents(person* newperson, person* father, person* mother);
     int add_child(person* parent, person* newperson);
 
@@ -66,5 +69,6 @@ public:
 
     int divorce(person* formerhusband, person* formerwife);
     int set_aside_concubine(person* man, person* woman);
-    int break_up(person* man, person* woman); };
+    int break_up(person* man, person* woman);
+};
 #endif
