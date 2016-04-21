@@ -30,6 +30,7 @@ struct status{
 typedef struct person person;
 struct person {
 
+private:
 //  dynasty;
     date dob;
     date deathdate;
@@ -43,29 +44,27 @@ struct person {
     person* formerpartners;
     person* children;
     person* lovers;
-    person* concubines; };
+    person* concubines;
+    
+public:
+    int set_dob(person* newperson);
+    int set_dob_d(person* newperson);
+    int set_dob_m(person* newperson);
+    int set_dob_y(person* newperson);
 
-int init_person(person* newperson);
+    int set_deathdate;
 
-int set_dob(person* newperson);
-int set_dob_d(person* newperson);
-int set_dob_m(person* newperson);
-int set_dob_y(person* newperson);
+    int set_name(person* newperson, std::string firstname, std::string lastname);
+    int set_parents(person* newperson, person* father, person* mother);
+    int add_child(person* parent, person* newperson);
 
-int set_deathdate;
+    int marry(person* husband, person* wife, char marrtype);
+    int add_lover(person* man, person* woman);
+    int add_concubine(person* man, person* woman);
 
-int set_name(person* newperson, std::string firstname, std::string lastname);
-int set_parents(person* newperson, person* father, person* mother);
-int add_child(person* parent, person* newperson);
+    int add_former_partner(person* man, person* woman);
 
-int marry(person* husband, person* wife, char marrtype);
-int add_lover(person* man, person* woman);
-int add_concubine(person* man, person* woman);
-
-int add_former_partner(person* man, person* woman);
-
-int divorce(person* formerhusband, person* formerwife);
-int set_aside_concubine(person* man, person* woman);
-int break_up(person* man, person* woman);
-
+    int divorce(person* formerhusband, person* formerwife);
+    int set_aside_concubine(person* man, person* woman);
+    int break_up(person* man, person* woman); };
 #endif
