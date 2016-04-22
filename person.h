@@ -30,7 +30,7 @@ struct dynasty {
     date_t founddate;
     
     dynasty(std::string dname, dynid_t dynid, person_t* founder,
-            person_t founddate);
+            date_t founddate);
     ~dynasty();
 };
 #endif
