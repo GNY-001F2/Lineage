@@ -2,18 +2,22 @@
 #include<cinttypes>
 #include<bitset>
 
-#ifndef DATET
-#define DATET
+#ifndef PERSONHTYPEDEFS
+#define PERSONHTYPEDEFS
+typedef struct person person_t;
 typedef struct date date_t;
+typedef uint16_t dynid_t;
+typedef struct dynasty dynasty_t;
+#endif
+
+#ifndef DATE
+#define DATE
 struct date{
 
     std::bitset<5> date;  //date <= 31
     std::bitset<4> month; //month <= 12 < 15
     int16_t year;
-
-    int set_d(unsigned date);
-    int set_m(unsigned month);
-    int set_y(int16_t year);
+    
 };
 #endif
 
@@ -21,9 +25,13 @@ struct date{
 #define DYNASTY
 struct dynasty {
     std::string dname;
+    dynid_t dynid;
     person_t* founder;
     date_t founddate;
     
+    dynasty(std::string dname, dynid_t dynid, person_t* founder,
+            person_t founddate);
+    ~dynasty();
 };
 #endif
 
@@ -44,9 +52,9 @@ struct dynasty {
 #define ISLGTMZD 0x800u
 #define ISLOWBORN 0x1000u
 
-typedef struct person person_t;
+
 struct person {
-//  dynasty;
+    dynasty_t dynasty;
     date_t dob;
     date_t deathdate;
     uint16_t status;
@@ -54,7 +62,7 @@ struct person {
     std::string middlenames;
     std::string surname;
     person_t* father;
-    person_t* realfather;
+    person_t* realfather; //for bastards
     person_t* mother;
     person_t* spouse;
     person_t* formerpartners;
@@ -62,24 +70,15 @@ struct person {
     person_t* lovers;
     person_t* concubines;
     
-    person(date_t dob, uint16_t status, )
-    
-    int set_dob(person_t* newperson);
-    int set_deathdate(person_t* newperson);
-
-    int set_name(person_t* newperson, std::string firstname, std::string lastname);
-//     int set_dynasty(person_t* newperson, dynasty);
-    int set_parents(person_t* newperson, person_t* father, person_t* mother);
-    int add_child(person_t* parent, person_t* newperson);
-
-    int marry(person_t* husband, person_t* wife, char marrtype);
-    int add_lover(person_t* man, person_t* woman);
-    int add_concubine(person_t* man, person_t* woman);
-
-    int add_former_partner(person_t* man, person_t* woman);
-
-    int divorce(person_t* formerhusband, person_t* formerwife);
-    int set_aside_concubine(person_t* man, person_t* woman);
-    int break_up(person_t* man, person_t* woman);
+    person(dynasty_t dynasty, date_t dob, uint16_t status,
+           person_t* father, person_t* mother);
+    person(dynasty_t dynasty, date_t dob, uint16_t status,
+           person_t* father, person_t* realfather, person_t* mother);
+    ~person();
 };
+#endif
+
+#ifndef PERSONFNS
+#define PERSONFNS
+
 #endif
