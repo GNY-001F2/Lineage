@@ -16,7 +16,7 @@ typedef struct dynasty dynasty_t;
 #define DATE
 struct date{
 
-    int32_t date;
+    int32_t datecontainer;
     date(int32_t rawdate);
 };
 #endif
