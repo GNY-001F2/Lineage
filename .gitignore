@@ -1,3 +1,5 @@
 *.gch
 *.o
-utilities2.cpp utilities2.h utilities.o
+utilities2.cpp
+utilities2.h
+utilities.o
