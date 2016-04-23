@@ -5,26 +5,23 @@
 
 #ifndef TYPEDEFS
 #define TYPEDEFS
-/* forward declaration to make utilization easier */
-/* need ids to prevent person and lowborn dynasty aliasing */
-typedef uint16_t dynid_t;
-typedef uint64_t personid_t;
-typedef struct person person_t;
-typedef struct dynasty dynasty_t;
+/* forward declaration for stuff that fails to compile */
+typedef struct person_t person_t;
 #endif
 
 #ifndef DYNASTY
 #define DYNASTY
-struct dynasty {
+typedef uint16_t dynid_t;
+typedef struct dynasty_t dynasty_t;
+struct dynasty_t {
     
     std::string dname;
     dynid_t dynid;
     person_t* founder;
     date_t founddate;
     
-    dynasty(std::string dname, dynid_t dynid, person_t* founder,
+    dynasty_t(std::string dname, dynid_t dynid, person_t* founder,
             date_t founddate);
-    ~dynasty();
 };
 #endif
 
@@ -46,7 +43,8 @@ struct dynasty {
 #define ISLOWBORN 0x1000u
 #define ISADULT 0x2000u
 
-struct person {
+typedef uint64_t personid_t;
+struct person_t {
     
     dynasty_t* dynasty;
     personid_t pid;
@@ -65,12 +63,11 @@ struct person {
     person_t* lovers;
     person_t* concubines;
     
-    person(dynasty_t dynasty, date_t dob, uint16_t status, person_t* mother);
-    person(dynasty_t dynasty, date_t dob, uint16_t status,
+    person_t(dynasty_t dynasty, std::string rawdob, uint16_t status, person_t* mother);
+    person_t(dynasty_t dynasty, std::string rawdob, uint16_t status,
            person_t* father, person_t* mother);
-    person(dynasty_t dynasty, date_t dob, uint16_t status,
+    person_t(dynasty_t dynasty, std::string rawdob, uint16_t status,
            person_t* father, person_t* realfather, person_t* mother);
-    ~person();
 };
 #endif
 

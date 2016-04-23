@@ -1,22 +1,33 @@
 #ifndef DATE_H
 #define DATE_H
-typedef struct date date_t;
+#include<cinttypes>
+#include<string>
 /*date bitmasks*/
 #define DAYM ((uint32_t) 0x1Fu)
 #define MONM ((uint32_t) 0x1E0u)
 #define YRM (~((uint32_t) 0x1FFu))
-#define BCE BIT_SHIFT(31, 1u)
+/* since, we are only concerned with the values stored in the first
+ * 30 bits we can safely ignore the BCE bit in the validation*/
+#define BAN_DATE (~((uint32_t) 0x7FFFFFFFu))
+#define DATE_VALID (1 << 31)
 /** structure contains an unsigned 32 bit integer that stores 
- * the day in 5 bits, the month in 4 bits, and the year in the
- * rest except the last bit is reserved for CE or BCE designation
+ * the day in 5 bits, the month in the next 4 bits.
+ * leap year designation set in the 30th bit.
+ * all bits between these reserved bits can be used to store a year.
+ * CE or BCE designation is stored in the 31st bit.
+ * Date validity is stored in the 32nd bit.
  */
-struct date{
+namespace date {
+typedef struct date_t date_t;
+struct date_t {
 
     uint32_t datecontainer;
-    date(uint8_t day, uint8_t month, uint32_t year, bool bce);
-    private: int setday(uint8_t day);
-    private: int setmnth(uint8_t month);
-    private: int setyr(uint32_t year);
-    private: int setbce(bool bce);
+    date_t(std::string rawdate);
+    private: void setday(uint8_t day);
+    private: void setmnth(uint8_t month);
+    private: void setyr(uint32_t year);
+    private: void setbce(unsigned char bce);
+    private: void validate(uint32_t datecontainer);
 };
+}
 #endif
