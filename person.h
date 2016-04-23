@@ -20,10 +20,10 @@ struct dynasty_t {
     
     std::string dname;
     dynid_t dynid;
-    person_t* founder;
+    std::shared_ptr<person_t> founder;
     date::date_t founddate;
     
-    dynasty_t(std::string dname, dynid_t dynid, person_t* founder,
+    dynasty_t(std::string dname, dynid_t dynid, std::shared_ptr<person_t> founder,
             date::date_t founddate);
 };
 
@@ -59,16 +59,15 @@ struct person_t {
     std::vector<std::shared_ptr<person_t>> children;
     std::vector<std::shared_ptr<person_t>> lovers;
     
-    person_t(dynasty_t dynasty, std::string rawdob, uint16_t status, person_t* mother);
+    person_t(dynasty_t dynasty, std::string rawdob, uint16_t status, std::shared_ptr<person_t> mother);
     person_t(dynasty_t dynasty, std::string rawdob, uint16_t status,
-           person_t* father, person_t* mother);
+           std::shared_ptr<person_t> father, std::shared_ptr<person_t> mother);
     person_t(dynasty_t dynasty, std::string rawdob, uint16_t status,
-           person_t* father, person_t* realfather, person_t* mother);
+           std::shared_ptr<person_t> father, std::shared_ptr<person_t> realfather, std::shared_ptr<person_t> mother);
 };
 
 #define ISADULTER 0x800u
 #define HASCONCUBINES 0x1000u
-#define ISCUCKOLD 0x2000u
 struct maleperson_t : public person_t {
     std::vector<std::shared_ptr<person_t>> concubines;
 };
