@@ -4,7 +4,7 @@
 
 #ifndef PERSONHTYPEDEFS
 #define PERSONHTYPEDEFS
-/* need ids to prevent aliasing */
+/* need ids to prevent person and lowborn dynasty aliasing */
 typedef uint16_t dynid_t;
 typedef uint64_t personid_t;
 typedef struct person person_t;
