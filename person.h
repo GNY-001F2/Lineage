@@ -4,9 +4,11 @@
 
 #ifndef PERSONHTYPEDEFS
 #define PERSONHTYPEDEFS
+/* need ids to prevent aliasing */
+typedef uint16_t dynid_t;
+typedef uint64_t personid_t;
 typedef struct person person_t;
 typedef struct date date_t;
-typedef uint16_t dynid_t;
 typedef struct dynasty dynasty_t;
 #endif
 
@@ -14,16 +16,15 @@ typedef struct dynasty dynasty_t;
 #define DATE
 struct date{
 
-    std::bitset<5> date;  //date <= 31
-    std::bitset<4> month; //month <= 12 < 15
-    int16_t year;
-    
+    int32_t date;
+    date(int32_t rawdate);
 };
 #endif
 
 #ifndef DYNASTY
 #define DYNASTY
 struct dynasty {
+    
     std::string dname;
     dynid_t dynid;
     person_t* founder;
@@ -52,9 +53,10 @@ struct dynasty {
 #define ISLGTMZD 0x800u
 #define ISLOWBORN 0x1000u
 
-
 struct person {
-    dynasty_t dynasty;
+    
+    dynasty_t* dynasty;
+    personid_t pid;
     date_t dob;
     date_t deathdate;
     uint16_t status;
@@ -70,6 +72,7 @@ struct person {
     person_t* lovers;
     person_t* concubines;
     
+    person(dynasty_t dynasty, date_t dob, uint16_t status, person_t* mother);
     person(dynasty_t dynasty, date_t dob, uint16_t status,
            person_t* father, person_t* mother);
     person(dynasty_t dynasty, date_t dob, uint16_t status,
