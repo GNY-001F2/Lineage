@@ -1,24 +1,16 @@
 #include<string>
 #include<cinttypes>
 #include<bitset>
+#include "date.h"
 
-#ifndef PERSONHTYPEDEFS
-#define PERSONHTYPEDEFS
+#ifndef TYPEDEFS
+#define TYPEDEFS
+/* forward declaration to make utilization easier */
 /* need ids to prevent person and lowborn dynasty aliasing */
 typedef uint16_t dynid_t;
 typedef uint64_t personid_t;
 typedef struct person person_t;
-typedef struct date date_t;
 typedef struct dynasty dynasty_t;
-#endif
-
-#ifndef DATE
-#define DATE
-struct date{
-
-    int32_t datecontainer;
-    date(int32_t rawdate);
-};
 #endif
 
 #ifndef DYNASTY
@@ -52,6 +44,7 @@ struct dynasty {
 #define KNWNBASTARD 0x400u
 #define ISLGTMZD 0x800u
 #define ISLOWBORN 0x1000u
+#define ISADULT 0x2000u
 
 struct person {
     
