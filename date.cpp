@@ -39,6 +39,9 @@ void date_t::setbce(unsigned char bce) {
 }
 void date_t::validate(uint32_t datecontainer) {
     
+    /* since, we are only concerned with the values stored in the first
+     * 30 bits we can safely ignore the BCE bit in the validation
+     */
     if ((datecontainer | BAN_DATE) != BAN_DATE)
         datecontainer |= DATE_VALID;
     /*TODO: code to check validity of the date and month bits*/

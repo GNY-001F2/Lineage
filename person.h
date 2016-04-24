@@ -22,9 +22,9 @@ struct dynasty_t {
     dynid_t dynid;
     std::shared_ptr<person_t> founder;
     date::date_t founddate;
-    
-    dynasty_t(std::string dname, dynid_t dynid, std::shared_ptr<person_t> founder,
-            date::date_t founddate);
+    std::vector<std::shared_ptr<dynasty_t>> cadet branches;
+    dynasty_t(std::string dname, dynid_t dynid,
+              std::shared_ptr<person_t> founder, date::date_t founddate);
 };
 
 /* common status bitmasks */
@@ -39,6 +39,9 @@ struct dynasty_t {
 #define ISLGTMZD 0x100u
 #define ISLOWBORN 0x200u
 #define ISADULT 0x400u
+#define ISCHEATR 0x800u
+#define KNWNCHTR 0x1000u
+#define ISHOMOSEXUAL 0x2000u
 
 typedef uint64_t personid_t;
 struct person_t {
@@ -58,23 +61,27 @@ struct person_t {
     std::vector<std::shared_ptr<person_t>> formerpartners;
     std::vector<std::shared_ptr<person_t>> children;
     std::vector<std::shared_ptr<person_t>> lovers;
-    
-    person_t(dynasty_t dynasty, std::string rawdob, uint16_t status, std::shared_ptr<person_t> mother);
+
+    person_t(dynasty_t dynasty, std::string rawdob, uint16_t status,
+             std::shared_ptr<person_t> realfather,
+             std::shared_ptr<person_t> mother);
     person_t(dynasty_t dynasty, std::string rawdob, uint16_t status,
            std::shared_ptr<person_t> father, std::shared_ptr<person_t> mother);
     person_t(dynasty_t dynasty, std::string rawdob, uint16_t status,
-           std::shared_ptr<person_t> father, std::shared_ptr<person_t> realfather, std::shared_ptr<person_t> mother);
+             std::shared_ptr<person_t> father,
+             std::shared_ptr<person_t> realfather,
+             std::shared_ptr<person_t> mother);
 };
 
-#define ISADULTER 0x800u
-#define HASCONCUBINES 0x1000u
+#define HASCONCUBINES 0x4000u
 struct maleperson_t : public person_t {
     std::vector<std::shared_ptr<person_t>> concubines;
 };
 
-#define ISADULTERESS 0x800u
-#define ISPREGNANT 0x1000u
-struct femaleperson_t : public person_t {};
+#define ISPREGNANT 0x4000u
+struct femaleperson_t : public person_t {
+    std::vector<std::shared_ptr<person_t>> pregnantwith;
+};
 }
 
 #endif
