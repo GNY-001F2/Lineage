@@ -1,8 +1,12 @@
 #include "date.h"
 namespace date {
-date_t::date_t(std::string rawdate) {
     
-    datecontainer = 0u;
+/* date_t(std::string rawdate): constructs the date from the input date string
+ * 
+ * string rawdate - the date in the format YYYYMMDD
+ */
+date_t::date_t(std::string rawdate): datecontainer(0u) {
+    
     /*TODO: take the rawdate string and convert it into its constituent parts*/
     //implementation here
     /*TODO: call the setter functions*/
