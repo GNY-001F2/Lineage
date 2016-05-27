@@ -1,7 +1,10 @@
 *.gch
 *.o
+*test*
 utilities2.cpp
 utilities2.h
 utilities.o
 a.out
 testing.cpp
+testing.cpp
+tokenizertest.cpp

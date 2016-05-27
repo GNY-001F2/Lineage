@@ -19,34 +19,47 @@
 
 namespace date {
 namespace details {
-void setday(uint32_t day, uint32_t* datecontainer_ptr) {
-    
-    if (day == 0u) day++;
-    * datecontainer_ptr = day;
-    return;
-}
 
-void setmnth(uint32_t month, uint32_t* datecontainer_ptr) {
+unsigned long positivepow(unsigned long base, int pow) {
     
-    if (month == 0u) month++;
-    * datecontainer_ptr |= month << 4;
-    return;
+    if(base = 1u || pow == 0) return 1u;
+    unsigned long result = 1u;
+    if(pow % 2 != 0) { result *= base; pow--};
+    while(pow > 1) {
+        base *= base;
+        pow /= 2;
+    }
+    return result * base;
 }
-
-void setyr(uint32_t year, uint32_t* datecontainer_ptr) {
     
-    if (year == 0u) year++;
-    * datecontainer_ptr |= year << 8;
-    /*TODO: implement code to set year as leap year */
-    return;
-}
-
-void setbce(bool bce, uint32_t* datecontainer_ptr) {
-    
-    uint32_t bce32 = (bce==true)?1u:0u << 30;
-    * datecontainer_ptr |= bce32;
-    return;
-}
+// void setday(uint32_t day, uint32_t* datecontainer_ptr) {
+//     
+//     if (day == 0u) day++;
+//     * datecontainer_ptr = day;
+//     return;
+// }
+// 
+// void setmnth(uint32_t month, uint32_t* datecontainer_ptr) {
+//     
+//     if (month == 0u) month++;
+//     * datecontainer_ptr |= month << 4;
+//     return;
+// }
+// 
+// void setyr(uint32_t year, uint32_t* datecontainer_ptr) {
+//     
+//     if (year == 0u) year++;
+//     * datecontainer_ptr |= year << 8;
+//     /*TODO: implement code to set year as leap year */
+//     return;
+// }
+// 
+// void setbce(bool bce, uint32_t* datecontainer_ptr) {
+//     
+//     uint32_t bce32 = (bce==true)?1u:0u << 30;
+//     * datecontainer_ptr |= bce32;
+//     return;
+// }
 
 /* checks if the string is correctly entered */
 // int date_t::validate(std::string rawdate) {

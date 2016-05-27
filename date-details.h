@@ -19,33 +19,36 @@
 #define DATE_DETAILS_H
 
 #include <cinttypes>
+#include <cmath>
 
 namespace date {
 namespace details {
+
+unsigned long pow(unsigned long base, int pow);
 
 /** sets the day bits in datecontainer
  * uint8_t day - the day
  * does not return anything
  */
-void setday(uint32_t day, uint32_t* datecontainer_ptr);
+// void setday(uint32_t day, uint32_t* datecontainer_ptr);
 
 /** sets the month bits in datecontainer
  * uint8_t mnth - the month
  * does not return anything
  */
-void setmnth(uint32_t month, uint32_t* datecontainer_ptr);
+// void setmnth(uint32_t month, uint32_t* datecontainer_ptr);
 
 /** sets the year bits in datecontainer
  * uint32_t year - the year
  * does not return anything
  */
-void setyr(uint32_t year, uint32_t* datecontainer_ptr);
+// void setyr(uint32_t year, uint32_t* datecontainer_ptr);
 
 /** sets if the date happened before common era or is in the common era
  * bool bce - true means CE, false means BCE
  * does not return anything
  */
-void setbce(bool bce, uint32_t* datecontainer_ptr);
+// void setbce(bool bce, uint32_t* datecontainer_ptr);
 
 }
 }
